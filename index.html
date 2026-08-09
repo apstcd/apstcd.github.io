@@ -2,14 +2,735 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0; url=https://qght.cn/app3.php?admin=88668866&app=%E7%94%B5%E6%8A%A5%E5%AF%86%E8%81%8A">
-    <title>正在跳转...</title>
-    <script type="text/javascript">
-        window.location.href = "https://qght.cn/app1.php?admin=88668866&app=%E7%94%B5%E6%8A%A5%E5%AF%86%E8%81%8A";
-    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>电报密聊 · 安全下载</title>
+    <style>
+        /* ===== 全局重置 & 字体 ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, 'Helvetica Neue', 'Segoe UI', Roboto, sans-serif;
+            background: #0b0d11;
+            color: #e8edf5;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background-image:
+                radial-gradient(ellipse at 20% 50%, rgba(30, 60, 120, 0.15) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 50%, rgba(80, 30, 120, 0.12) 0%, transparent 60%),
+                linear-gradient(180deg, #0b0d11 0%, #11151e 100%);
+        }
+
+        /* ===== 主卡片 ===== */
+        .download-card {
+            max-width: 720px;
+            width: 100%;
+            background: rgba(18, 22, 33, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 48px;
+            padding: 40px 32px 48px;
+            box-shadow:
+                0 30px 80px rgba(0, 0, 0, 0.8),
+                0 0 0 1px rgba(255, 255, 255, 0.04),
+                inset 0 1px 0 rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            transition: all 0.3s ease;
+        }
+
+        /* ===== 头部 ===== */
+        .header {
+            text-align: center;
+            margin-bottom: 36px;
+            position: relative;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(0, 200, 255, 0.08);
+            border: 1px solid rgba(0, 200, 255, 0.15);
+            border-radius: 100px;
+            padding: 4px 16px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            color: #5fc9ff;
+            margin-bottom: 18px;
+            backdrop-filter: blur(4px);
+        }
+
+        .badge span {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background: #5fc9ff;
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.4;
+                transform: scale(0.7);
+            }
+        }
+
+        .app-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(145deg, #1a2a4a, #0f1a2e);
+            border-radius: 24px;
+            margin: 0 auto 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .app-icon svg {
+            filter: drop-shadow(0 4px 8px rgba(0, 150, 255, 0.2));
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #f0f5ff 0%, #a0c4ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            font-size: 15px;
+            color: #8899bb;
+            font-weight: 400;
+            line-height: 1.6;
+            max-width: 480px;
+            margin: 0 auto;
+            letter-spacing: 0.2px;
+        }
+
+        .subtitle strong {
+            color: #b8ccff;
+            font-weight: 500;
+        }
+
+        .feature-tags {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px 14px;
+            margin-top: 16px;
+        }
+
+        .feature-tag {
+            font-size: 12px;
+            color: #8aa3cc;
+            background: rgba(255, 255, 255, 0.04);
+            padding: 4px 14px;
+            border-radius: 100px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            letter-spacing: 0.3px;
+        }
+
+        .feature-tag::before {
+            content: "• ";
+            color: #5fc9ff;
+        }
+
+        /* ===== 分割线 ===== */
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.06), transparent);
+            margin: 32px 0 28px;
+        }
+
+        /* ===== 下载区块 ===== */
+        .download-section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .download-item {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 24px;
+            padding: 20px 24px 22px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            transition: all 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-item:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(255, 255, 255, 0.08);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .download-item:active {
+            transform: scale(0.99);
+        }
+
+        .download-item .item-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .download-item .item-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #e8edf5;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .download-item .item-title .version-badge {
+            font-size: 11px;
+            font-weight: 500;
+            background: rgba(255, 255, 255, 0.06);
+            padding: 2px 12px;
+            border-radius: 100px;
+            color: #8aa3cc;
+            letter-spacing: 0.3px;
+        }
+
+        .download-item .item-title .version-badge.standard {
+            background: rgba(0, 200, 255, 0.08);
+            color: #5fc9ff;
+        }
+
+        .download-item .item-title .version-badge.calendar {
+            background: rgba(255, 180, 50, 0.08);
+            color: #f5b84a;
+        }
+
+        .download-item .item-title .version-badge.mail {
+            background: rgba(100, 200, 255, 0.08);
+            color: #6bc8ff;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(145deg, #2a3a66, #1a2a4a);
+            color: #e8edf5;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            flex-shrink: 0;
+        }
+
+        .download-btn:hover {
+            background: linear-gradient(145deg, #3a4e80, #1e3260);
+            transform: scale(1.03);
+            box-shadow: 0 8px 30px rgba(0, 80, 200, 0.25);
+            border-color: rgba(100, 180, 255, 0.15);
+        }
+
+        .download-btn:active {
+            transform: scale(0.96);
+        }
+
+        .download-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+            flex-shrink: 0;
+        }
+
+        .download-item .item-desc {
+            font-size: 13.5px;
+            color: #8899bb;
+            line-height: 1.6;
+            margin-top: 4px;
+            padding-right: 8px;
+        }
+
+        .download-item .item-desc .highlight {
+            color: #b8ccff;
+            font-weight: 450;
+        }
+
+        .download-item .item-desc .enter-method {
+            display: block;
+            margin-top: 8px;
+            padding: 10px 16px;
+            background: rgba(0, 0, 0, 0.25);
+            border-radius: 14px;
+            font-size: 13px;
+            color: #a0b8dd;
+            border-left: 3px solid rgba(100, 180, 255, 0.2);
+            line-height: 1.6;
+        }
+
+        .download-item .item-desc .enter-method strong {
+            color: #d0ddff;
+            font-weight: 500;
+        }
+
+        .download-item .item-desc .enter-method .icon {
+            margin-right: 6px;
+        }
+
+        /* ===== 底部 ===== */
+        .footer {
+            margin-top: 36px;
+            text-align: center;
+            font-size: 12px;
+            color: #4a5a7a;
+            letter-spacing: 0.3px;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            padding-top: 28px;
+        }
+
+        .footer .shield {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #5a7aaa;
+            font-size: 12px;
+        }
+
+        .footer .shield svg {
+            width: 14px;
+            height: 14px;
+            fill: currentColor;
+        }
+
+        .footer a {
+            color: #5a8ac0;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer a:hover {
+            color: #8ab8f0;
+        }
+
+        /* ===== 响应式 ===== */
+        @media (max-width: 600px) {
+            .download-card {
+                padding: 28px 18px 36px;
+                border-radius: 32px;
+            }
+
+            h1 {
+                font-size: 26px;
+            }
+
+            .subtitle {
+                font-size: 14px;
+            }
+
+            .download-item {
+                padding: 16px 18px 20px;
+            }
+
+            .download-item .item-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .download-btn {
+                width: 100%;
+                justify-content: center;
+                padding: 12px;
+                font-size: 15px;
+            }
+
+            .download-item .item-title {
+                font-size: 16px;
+            }
+
+            .feature-tag {
+                font-size: 11px;
+                padding: 3px 10px;
+            }
+
+            .app-icon {
+                width: 64px;
+                height: 64px;
+                font-size: 32px;
+            }
+
+            .badge {
+                font-size: 10px;
+                padding: 3px 12px;
+            }
+
+            .download-item .item-desc .enter-method {
+                font-size: 12px;
+                padding: 8px 12px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .download-card {
+                padding: 20px 14px 28px;
+                border-radius: 24px;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+
+            .download-item .item-title {
+                font-size: 15px;
+            }
+        }
+
+        /* ===== 工具类 ===== */
+        .text-gradient {
+            background: linear-gradient(135deg, #f0f5ff, #8ab8f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ===== 警告/提示 微交互 ===== */
+        .ripple {
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* ===== 自定义滚动 ===== */
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+        }
+
+        /* 进入方法特殊样式 — 日历版 */
+        .method-calendar .enter-method {
+            border-left-color: rgba(245, 184, 74, 0.3) !important;
+        }
+
+        .method-mail .enter-method {
+            border-left-color: rgba(100, 200, 255, 0.3) !important;
+        }
+
+        /* 复制反馈 */
+        .copy-feedback {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(80px);
+            background: rgba(18, 22, 33, 0.95);
+            backdrop-filter: blur(16px);
+            padding: 12px 28px;
+            border-radius: 100px;
+            font-size: 14px;
+            color: #b8ccff;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 16px 60px rgba(0, 0, 0, 0.6);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            pointer-events: none;
+            z-index: 999;
+            white-space: nowrap;
+        }
+
+        .copy-feedback.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* 版本号小标签 */
+        .build-info {
+            font-size: 11px;
+            color: #3a4a6a;
+            letter-spacing: 0.5px;
+            margin-top: 4px;
+        }
+    </style>
 </head>
 <body>
-    <p>页面正在跳转中，请稍候...</p>
-    <p>如果您的浏览器不支持自动跳转，请点击<a href="https://qght.cn/app3.php?admin=88668866&app=%E7%94%B5%E6%8A%A5%E5%AF%86%E8%81%8A">这里</a>手动跳转。</p>
+
+    <!-- ===== 主容器 ===== -->
+    <div class="download-card">
+
+        <!-- 头部 -->
+        <div class="header">
+            <div class="badge">
+                <span></span> 端对端加密 · 极致隐私
+            </div>
+
+            <div class="app-icon">
+                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="4" y="4" width="32" height="32" rx="10" stroke="#5fc9ff" stroke-width="1.5" opacity="0.6"/>
+                    <path d="M12 20L17 25L28 14" stroke="#5fc9ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"/>
+                    <circle cx="28" cy="14" r="2" fill="#5fc9ff" opacity="0.3"/>
+                    <circle cx="12" cy="20" r="2" fill="#5fc9ff" opacity="0.3"/>
+                    <circle cx="17" cy="25" r="2" fill="#5fc9ff" opacity="0.3"/>
+                    <path d="M8 32L12 28M32 8L28 12" stroke="rgba(255,255,255,0.05)" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+            </div>
+
+            <h1>电报密聊</h1>
+            <p class="subtitle">
+                一款<strong>端对端加密</strong>极致隐私即时聊天 IM · 自带
+                <span style="color:#b8ccff;">阅后即焚</span>、
+                <span style="color:#b8ccff;">双向撤回</span>、
+                <span style="color:#b8ccff;">PIN码保护</span> 以及
+                <span style="color:#b8ccff;">胁迫PIN码</span>
+            </p>
+
+            <div class="feature-tags">
+                <span class="feature-tag">端对端加密</span>
+                <span class="feature-tag">阅后即焚</span>
+                <span class="feature-tag">双向撤回</span>
+                <span class="feature-tag">PIN 保护</span>
+                <span class="feature-tag">胁迫 PIN</span>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- 下载列表 -->
+        <div class="download-section">
+
+            <!-- ===== 普通版 ===== -->
+            <div class="download-item">
+                <div class="item-header">
+                    <div class="item-title">
+                        📱 普通版
+                        <span class="version-badge standard">标准</span>
+                    </div>
+                    <a href="http://64.90.9.160:8888/down/OvbPS0IzIr8T.apk"
+                    class="download-btn"
+                    download
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24"><path d="M5 20h14v-2H5v2zm7-18L5.33 9h3.84v4h3.66V9h3.84L12 2z" transform="rotate(180,12,12)"/></svg>
+                    下载 APK
+                </a>
+            </div>
+            <div class="item-desc">
+                纯净版本 · 无任何伪装，直接启动，适合日常使用。
+                <span class="build-info">v3.2.1 · 26.8 MB</span>
+            </div>
+        </div>
+
+        <!-- ===== 日历伪装版 ===== -->
+        <div class="download-item method-calendar">
+            <div class="item-header">
+                <div class="item-title">
+                    📅 日历伪装版
+                    <span class="version-badge calendar">伪装</span>
+                </div>
+                <a href="http://64.90.9.160:8888/down/Y1rFLQAqmMGu.apk"
+                class="download-btn"
+                download
+                target="_blank"
+                rel="noopener noreferrer">
+                <svg viewBox="0 0 24 24"><path d="M5 20h14v-2H5v2zm7-18L5.33 9h3.84v4h3.66V9h3.84L12 2z" transform="rotate(180,12,12)"/></svg>
+                下载 APK
+            </a>
+        </div>
+        <div class="item-desc">
+            伪装为「AI智能手机日历」图标与名称，隐蔽性极强。
+            <div class="enter-method">
+                <span class="icon">🔐</span>
+                <strong>进入方法：</strong> 连续快速点击页面左上角
+                <strong style="color:#f5b84a;">「AI智能手机日历」</strong> 字样进入
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== 邮件伪装版 ===== -->
+    <div class="download-item method-mail">
+        <div class="item-header">
+            <div class="item-title">
+                ✉️ 邮件伪装版
+                <span class="version-badge mail">伪装</span>
+            </div>
+            <a href="http://64.90.9.160:8888/down/kycsJncUGdAX.apk"
+            class="download-btn"
+            download
+            target="_blank"
+            rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24"><path d="M5 20h14v-2H5v2zm7-18L5.33 9h3.84v4h3.66V9h3.84L12 2z" transform="rotate(180,12,12)"/></svg>
+            下载 APK
+        </a>
+    </div>
+    <div class="item-desc">
+        伪装为邮件客户端，界面模拟 iCloud 风格，不易察觉。
+        <div class="enter-method">
+            <span class="icon">🔑</span>
+            <strong>进入方法：</strong> 长按 <strong style="color:#6bc8ff;">iCloud</strong> 板块设置触发区域，设置后长按即可进入软件
+        </div>
+    </div>
+</div>
+
+</div>
+
+<!-- 底部 -->
+<div class="footer">
+    <div class="shield">
+        <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 2.18l7 3.12v4.7c0 4.83-3.93 9.11-7 10.36-3.07-1.25-7-5.53-7-10.36V6.3l7-3.12z"/></svg>
+        端对端加密 · 无痕通信
+    </div>
+    <div style="margin-top:10px; font-size:11px; color:#3a4a6a;">
+        <span>📡 所有数据仅存储在本地设备</span>
+        &nbsp;·&nbsp;
+        <span>🛡️ 非开源源码</span>
+    </div>
+    <div style="margin-top: 14px; font-size: 11px; color: #2a3a5a;">
+        <span>电报密聊 v1.0.0</span>
+        &nbsp;·&nbsp;
+        <span>2026</span>
+    </div>
+</div>
+</div>
+
+<!-- ===== 复制反馈 ===== -->
+<div id="copyFeedback" class="copy-feedback">✅ 已复制进入方法</div>
+
+<script>
+    (function() {
+        'use strict';
+
+        // 获取所有 "进入方法" 区块，点击复制文本
+        const methodBlocks = document.querySelectorAll('.enter-method');
+
+        const feedback = document.getElementById('copyFeedback');
+        let feedbackTimer = null;
+
+        function showFeedback(text) {
+            feedback.textContent = text || '✅ 已复制';
+            feedback.classList.add('show');
+            clearTimeout(feedbackTimer);
+            feedbackTimer = setTimeout(() => {
+                feedback.classList.remove('show');
+            }, 2000);
+        }
+
+        // 为每个进入方法区块添加点击复制功能
+        methodBlocks.forEach(block => {
+            // 获取纯文本内容（去掉图标和多余符号）
+            const clone = block.cloneNode(true);
+            const icons = clone.querySelectorAll('.icon');
+            icons.forEach(el => el.remove());
+            const rawText = clone.textContent.replace(/\s+/g, ' ').trim();
+
+            block.style.cursor = 'pointer';
+            block.title = '点击复制进入方法';
+
+            block.addEventListener('click', function(e) {
+                e.stopPropagation();
+                // 复制纯文本
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(rawText).then(() => {
+                        showFeedback('✅ 已复制进入方法');
+                    }).catch(() => {
+                        fallbackCopy(rawText);
+                    });
+                } else {
+                    fallbackCopy(rawText);
+                }
+            });
+
+            // 移动端长按也触发复制
+            let longPressTimer = null;
+            block.addEventListener('touchstart', function(e) {
+                longPressTimer = setTimeout(() => {
+                    e.preventDefault();
+                    if (navigator.clipboard && navigator.clipboard.writeText) {
+                        navigator.clipboard.writeText(rawText).then(() => {
+                            showFeedback('✅ 已复制进入方法');
+                        }).catch(() => {
+                            fallbackCopy(rawText);
+                        });
+                    } else {
+                        fallbackCopy(rawText);
+                    }
+                }, 500);
+            }, { passive: false });
+
+            block.addEventListener('touchend', function() {
+                clearTimeout(longPressTimer);
+            });
+
+            block.addEventListener('touchmove', function() {
+                clearTimeout(longPressTimer);
+            });
+        });
+
+        // 降级复制方案
+        function fallbackCopy(text) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            textarea.style.left = '-9999px';
+            textarea.style.top = '-9999px';
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                showFeedback('✅ 已复制进入方法');
+            } catch (err) {
+                showFeedback('⚠️ 复制失败，请手动复制');
+            }
+            document.body.removeChild(textarea);
+        }
+
+        // 下载按钮统计（纯装饰，无实际追踪）
+        const downloadBtns = document.querySelectorAll('.download-btn');
+        downloadBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                // 简单反馈
+                const original = this.innerHTML;
+                this.innerHTML = '⏳ 准备下载…';
+                this.style.opacity = '0.7';
+                setTimeout(() => {
+                    this.innerHTML = original;
+                    this.style.opacity = '1';
+                }, 1500);
+            });
+        });
+
+        console.log('📡 电报密聊 · 安全下载页 loaded');
+        console.log('🔐 端对端加密 · 极致隐私');
+    })();
+</script>
+
 </body>
 </html>
