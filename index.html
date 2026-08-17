@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>泸峰论坛</title>
+    <style>
+        /* 全局重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+            background: #f0f2f5;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* 主容器 — 简单卡片，不用过度设计 */
+        .container {
+            width: 100%;
+            max-width: 400px;
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 40px 28px 36px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            text-align: center;
+        }
+
+        /* 标题区域 */
+        .brand {
+            margin-bottom: 32px;
+        }
+
+        .brand h1 {
+            font-size: 32px;
+            font-weight: 600;
+            color: #1a2a3a;
+            letter-spacing: 4px;
+            margin-bottom: 6px;
+        }
+
+        .brand .sub {
+            font-size: 14px;
+            color: #8a9aa8;
+            letter-spacing: 2px;
+            font-weight: 300;
+        }
+
+        .divider {
+            width: 40px;
+            height: 2px;
+            background: #d0d7de;
+            margin: 14px auto 0;
+        }
+
+        /* 按钮组 */
+        .actions {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-top: 8px;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 16px 0;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 500;
+            text-decoration: none;
+            text-align: center;
+            transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+            cursor: pointer;
+            border: none;
+            background: #f7f9fb;
+            color: #1a2a3a;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+        }
+
+        .btn:active {
+            transform: scale(0.97);
+        }
+
+        /* 网页版按钮 — 主色 */
+        .btn-web {
+            background: #1a2a3a;
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(26, 42, 58, 0.25);
+        }
+
+        .btn-web:hover {
+            background: #0f1d2b;
+        }
+
+        .btn-web:active {
+            box-shadow: 0 2px 6px rgba(26, 42, 58, 0.3);
+        }
+
+        /* 安卓下载按钮 — 浅色边框 */
+        .btn-android {
+            background: #ffffff;
+            color: #1a2a3a;
+            border: 1.5px solid #dce2e8;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
+        }
+
+        .btn-android:hover {
+            background: #f5f7fa;
+            border-color: #bcc8d4;
+        }
+
+        .btn-android:active {
+            background: #edf0f4;
+        }
+
+        /* 辅助信息 — 版本/大小等，自然点缀 */
+        .meta {
+            margin-top: 24px;
+            font-size: 13px;
+            color: #b0bcc8;
+            letter-spacing: 0.5px;
+            border-top: 1px solid #f0f2f5;
+            padding-top: 20px;
+        }
+
+        .meta span {
+            margin: 0 6px;
+        }
+
+        /* 简单的响应式微调 */
+        @media (max-width: 460px) {
+            .container {
+                padding: 32px 20px 28px;
+                border-radius: 16px;
+            }
+            .brand h1 {
+                font-size: 28px;
+                letter-spacing: 3px;
+            }
+            .btn {
+                font-size: 17px;
+                padding: 15px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- 品牌 -->
+        <div class="brand">
+            <h1>泸峰论坛</h1>
+            <div class="sub">Lufeng BBS</div>
+            <div class="divider"></div>
+        </div>
+
+        <!-- 两个入口 -->
+        <div class="actions">
+            <a href="http://64.90.9.160:5200/" class="btn btn-web">
+                进入网页版
+            </a>
+            <a href="http://64.90.9.160:8888/download?filename=%2Fwww%2Fwwwroot%2F%E6%B3%B8%E5%B3%B0%E8%AE%BA%E5%9D%9B_1.00.apk&client_bind_token=sKEiCLbZIuFn3QZxvd&form_data=tALs%2FS0Vl2lH8uqXwnKtINiTvakphJfkATxvypVXB705Dne9kQmJrz9HSW2dorBJdoFjC%2FbnhXAfbUB74Iz0Adprw8S7te6jHFhqfda3wSLapKVFZ62wiLix8i0%2BdUkI" class="btn btn-android">
+                安装安卓版
+            </a>
+        </div>
+
+        <!-- 一行小字，自然收尾 -->
+        <div class="meta">
+            <span>v1.0</span> <span>·</span> <span>安卓 5.0+</span>
+        </div>
+
+    </div>
+
+</body>
+</html>
